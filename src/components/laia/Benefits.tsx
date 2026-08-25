@@ -43,7 +43,7 @@ export function Benefits() {
               Beneficios
             </span>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-              ¿Por qué tu negocio necesita una solución con IA?
+              ¿Por qué tu negocio necesita una solución con LAIA?
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               La inteligencia artificial no reemplaza a las personas: las potencia. Te ayuda a
