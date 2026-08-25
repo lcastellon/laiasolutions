@@ -1,11 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { createOpenAI } from "@ai-sdk/openai";
-import { streamText, Output, NoObjectGeneratedError } from "ai";
+import { generateText, Output, NoObjectGeneratedError } from "ai";
 
 import type { Database } from "@/integrations/supabase/types";
-import { createLovableAiGatewayRunIdFetch } from "./ai-gateway";
+import { createLovableAiGatewayProvider } from "./ai-gateway";
 
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
