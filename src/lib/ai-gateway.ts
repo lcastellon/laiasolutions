@@ -144,20 +144,6 @@ export function createLovableAiGatewayProvider(
 ) {
   const runIdFetch = createLovableAiGatewayRunIdFetch(initialRunId);
 
-  const debugFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-    const response = await runIdFetch.fetch(input, init);
-    if (!response.ok) {
-      const body = await response.text();
-      console.error("Lovable AI Gateway chat error response", response.status, body);
-      return new Response(body, {
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers,
-      });
-    }
-    return response;
-  };
-
   const provider = createOpenAICompatible({
     name: "lovable",
     baseURL: "https://ai.gateway.lovable.dev/v1",
@@ -166,7 +152,7 @@ export function createLovableAiGatewayProvider(
       "Lovable-API-Key": lovableApiKey,
       "X-Lovable-AIG-SDK": "vercel-ai-sdk",
     },
-    fetch: debugFetch,
+    fetch: runIdFetch.fetch,
   });
 
   return Object.assign(provider, {
