@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import { createOpenAI } from "@ai-sdk/openai";
+import { generateText, Output } from "ai";
 
 import type { Database } from "@/integrations/supabase/types";
 
@@ -15,22 +17,26 @@ const ChatInput = z.object({
 
 export type AgentMessage = z.infer<typeof MessageSchema>;
 
-export type AgentLead = {
-  name: string;
-  business_type: string;
-  problem: string;
-  recommended_solution: string;
-  tools: string;
-  urgency: string;
-  contact: string;
-  conversation_summary: string;
-};
+export const AgentLeadSchema = z.object({
+  name: z.string().max(200),
+  business_type: z.string().max(300),
+  problem: z.string().max(2000),
+  recommended_solution: z.string().max(2000),
+  tools: z.string().max(1000),
+  urgency: z.string().max(200),
+  contact: z.string().max(300),
+  conversation_summary: z.string().max(8000),
+});
 
-export type AgentReply = {
-  reply: string;
-  status: "asking" | "done";
-  lead: AgentLead | null;
-};
+export type AgentLead = z.infer<typeof AgentLeadSchema>;
+
+const AgentReplySchema = z.object({
+  reply: z.string().min(1).max(4000),
+  status: z.enum(["asking", "done"]),
+  lead: AgentLeadSchema.nullable(),
+});
+
+export type AgentReply = z.infer<typeof AgentReplySchema>;
 
 const SYSTEM_PROMPT = `Eres el "Agente Diagnóstico LAIA", el asistente de LAIA (Laboratorio de Inteligencia Artificial).
 LAIA crea agentes de IA, chatbots, automatizaciones, aplicaciones web y landing pages para negocios.
@@ -49,68 +55,32 @@ Reglas de la conversación:
   **Solución recomendada**, **Herramientas sugeridas**, **Nivel de urgencia**, **Siguiente paso**.
   En ese mensaje final usa status "done".
 
-Responde SIEMPRE con un objeto JSON válido con esta forma exacta:
-{
-  "reply": "tu mensaje para la persona (markdown permitido)",
-  "status": "asking" | "done",
-  "lead": null | {
-    "name": "",
-    "business_type": "",
-    "problem": "",
-    "recommended_solution": "",
-    "tools": "",
-    "urgency": "",
-    "contact": "",
-    "conversation_summary": ""
-  }
-}
-Usa "lead" solo cuando status sea "done", con la información recopilada.`;
+Responde SIEMPRE usando la estructura esperada:
+- reply: tu mensaje para la persona (markdown permitido).
+- status: "asking" mientras estés preguntando, "done" cuando entregues el resumen final.
+- lead: null mientras estés preguntando; cuando status sea "done", incluye la información recopilada.`;
 
 export const chatWithAgent = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => ChatInput.parse(input))
   .handler(async ({ data }): Promise<AgentReply> => {
-    const key = process.env["LOVABLE_API_KEY"];
+    const key = process.env["OPENAI_API_KEY"];
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Lovable-API-Key": key,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3.7-flash",
-        response_format: { type: "json_object" },
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...data.messages],
-      }),
-    });
-
-    if (!response.ok) {
-      const detail = await response.text();
-      console.error("Lovable AI gateway error", response.status, detail);
-      if (response.status === 429) {
-        throw new Error("Hay muchas consultas en este momento. Intenta de nuevo en unos segundos.");
-      }
-      if (response.status === 402 || response.status === 403) {
-        throw new Error("El agente no está disponible temporalmente. Escríbenos por WhatsApp.");
-      }
-      throw new Error("No pudimos generar la respuesta del agente.");
-    }
-
-    const payload = (await response.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-    const raw = payload.choices?.[0]?.message?.content ?? "";
+    const openai = createOpenAI({ apiKey: key });
 
     try {
-      const parsed = JSON.parse(raw) as Partial<AgentReply>;
-      return {
-        reply: parsed.reply?.trim() || "¿Podrías contarme un poco más?",
-        status: parsed.status === "done" ? "done" : "asking",
-        lead: parsed.status === "done" && parsed.lead ? (parsed.lead as AgentLead) : null,
-      };
-    } catch {
-      return { reply: raw || "¿Podrías contarme un poco más?", status: "asking", lead: null };
+      const { output } = await generateText({
+        model: openai("gpt-4o-mini"),
+        output: Output.object({
+          schema: AgentReplySchema,
+        }),
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...data.messages],
+      });
+
+      return output;
+    } catch (error) {
+      console.error("OpenAI agent error", error);
+      throw new Error("No pudimos generar la respuesta del agente. Intenta de nuevo en unos segundos.");
     }
   });
 
