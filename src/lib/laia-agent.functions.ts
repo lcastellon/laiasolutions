@@ -101,46 +101,21 @@ export const chatWithAgent = createServerFn({ method: "POST" })
     const key = process.env["LOVABLE_API_KEY"];
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
 
-    const runIdFetch = createLovableAiGatewayRunIdFetch();
-    const debugFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-      const response = await runIdFetch.fetch(input, init);
-      if (!response.ok) {
-        const body = await response.text();
-        console.error("Lovable AI Gateway error response", response.status, body);
-        return new Response(body, {
-          status: response.status,
-          statusText: response.statusText,
-          headers: response.headers,
-        });
-      }
-      return response;
-    };
-    const lovable = createOpenAI({
-      baseURL: "https://ai.gateway.lovable.dev/v1",
-      apiKey: key,
-      headers: {
-        "Lovable-API-Key": key,
-        "X-Lovable-AIG-SDK": "vercel-ai-sdk",
-      },
-      fetch: debugFetch,
+    const gateway = createLovableAiGatewayProvider(key, undefined, {
+      structuredOutputs: true,
     });
 
     try {
-      const result = streamText({
-        model: lovable.responses("openai/gpt-4o-mini"),
+      const result = await generateText({
+        model: gateway("openai/gpt-4o-mini"),
         system: SYSTEM_PROMPT,
         messages: data.messages,
         output: Output.object({
           schema: AgentReplyOutputSchema,
         }),
-        providerOptions: {
-          openai: {
-            store: false,
-          },
-        },
       });
 
-      const output = await result.output;
+      const output = result.output;
       const validated = AgentReplySchema.parse(output);
 
       if (validated.status === "done" && validated.lead) {
