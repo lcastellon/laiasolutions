@@ -6,7 +6,6 @@ import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { LaiaMark } from "@/components/laia/Logo";
 import { chatWithAgent, saveLead, type AgentMessage } from "@/lib/laia-agent.functions";
 
 const OPEN_EVENT = "laia:open-chat";
@@ -35,7 +34,7 @@ function ChatBubble({ message }: { message: AgentMessage }) {
     <div className={isUser ? "flex justify-end" : "flex gap-3"}>
       {!isUser && (
         <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
-          <LaiaMark className="h-5 w-5" />
+          <Sparkles className="h-4 w-4 text-primary" />
         </span>
       )}
       <div
