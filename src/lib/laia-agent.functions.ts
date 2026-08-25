@@ -61,7 +61,7 @@ Responde SIEMPRE usando la estructura esperada:
 - lead: null mientras estés preguntando; cuando status sea "done", incluye la información recopilada.`;
 
 export const chatWithAgent = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => ChatInput.parse(input))
+  .validator((input: unknown) => ChatInput.parse(input))
   .handler(async ({ data }): Promise<AgentReply> => {
     const key = process.env["OPENAI_API_KEY"];
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
@@ -96,7 +96,7 @@ const LeadInput = z.object({
 });
 
 export const saveLead = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => LeadInput.parse(input))
+  .validator((input: unknown) => LeadInput.parse(input))
   .handler(async ({ data }) => {
     const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
     const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
