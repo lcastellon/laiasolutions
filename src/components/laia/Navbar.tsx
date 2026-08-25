@@ -34,9 +34,6 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" asChild>
-            <a href="#contacto">Contacto</a>
-          </Button>
           <Button size="sm" asChild>
             <a href="#contacto">Quiero una consulta</a>
           </Button>
