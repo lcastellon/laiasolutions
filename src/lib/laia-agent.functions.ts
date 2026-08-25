@@ -107,7 +107,7 @@ export const chatWithAgent = createServerFn({ method: "POST" })
 
     try {
       const result = await generateText({
-        model: gateway("openai/gpt-4o-mini"),
+        model: gateway("openai/gpt-5-mini"),
         system: SYSTEM_PROMPT,
         messages: data.messages,
         output: Output.object({
