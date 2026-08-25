@@ -39,6 +39,8 @@ export const Route = createFileRoute("/")({
         content:
           "Diseñamos soluciones inteligentes: automatización, chatbots, aplicaciones web y landing pages con inteligencia artificial.",
       },
+      { property: "og:image", content: "https://laiasolutions.lovable.app/og-laia.png" },
+      { name: "twitter:image", content: "https://laiasolutions.lovable.app/og-laia.png" },
     ],
   }),
 });
