@@ -69,9 +69,16 @@ Reglas de la conversación:
   3) cómo lo hacen hoy y qué herramientas usan, 4) qué tan urgente es resolverlo,
   5) nombre, 6) correo o WhatsApp para enviarle la propuesta.
 - No pidas todos los datos de golpe. No repitas preguntas ya respondidas.
-- Cuando ya tengas negocio, problema, urgencia, nombre y contacto, entrega el resumen final
-  en formato markdown con estos apartados: **Tipo de negocio**, **Problema principal**,
-  **Solución recomendada**, **Herramientas sugeridas**, **Nivel de urgencia**, **Siguiente paso**.
+- MUY IMPORTANTE: nunca entregues el plan de implementación, los pasos técnicos ni las
+  instrucciones de "qué debe hacer" el cliente. No expliques cómo resolverlo por su cuenta,
+  no listes herramientas concretas ni des un tutorial. Ese detalle lo entrega el equipo de LAIA.
+- Cuando ya tengas negocio, problema, urgencia, nombre y contacto, cierra la conversación con un
+  mensaje breve (máximo 6 líneas) que contenga solo:
+  1) **Lo que entendí**: 1 o 2 líneas resumiendo su negocio y su problema principal.
+  2) **Cómo podemos ayudarte**: 1 línea general sobre el tipo de solución (por ejemplo
+     "un asistente de IA que atienda tus mensajes"), sin detalles ni pasos.
+  3) Un cierre confirmando que un especialista de LAIA se comunicará con él o ella muy pronto
+     por el medio de contacto que compartió, para presentarle la propuesta a detalle.
   En ese mensaje final usa status "done".
 - Respeta estos límites de longitud para cada campo del lead:
   name: 200 caracteres, business_type: 300, problem: 2000, recommended_solution: 2000,
@@ -79,8 +86,10 @@ Reglas de la conversación:
 
 Responde SIEMPRE usando la estructura esperada:
 - reply: tu mensaje para la persona (markdown permitido).
-- status: "asking" mientras estés preguntando, "done" cuando entregues el resumen final.
-- lead: null mientras estés preguntando; cuando status sea "done", incluye la información recopilada.`;
+- status: "asking" mientras estés preguntando, "done" cuando entregues el cierre final.
+- lead: null mientras estés preguntando; cuando status sea "done", incluye la información recopilada.
+  En el lead SÍ puedes detallar la solución recomendada y las herramientas sugeridas: eso es
+  información interna para el equipo de LAIA, no se le muestra al cliente.`;
 
 function clampLead(lead: AgentLead): AgentLead {
   return {
