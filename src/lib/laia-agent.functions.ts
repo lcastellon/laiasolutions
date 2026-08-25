@@ -1,10 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { createOpenAI } from "@ai-sdk/openai";
-import { generateText, Output } from "ai";
+import { generateText, Output, NoObjectGeneratedError } from "ai";
 
 import type { Database } from "@/integrations/supabase/types";
+import { createLovableAiGatewayProvider } from "./ai-gateway";
 
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
@@ -30,13 +30,32 @@ export const AgentLeadSchema = z.object({
 
 export type AgentLead = z.infer<typeof AgentLeadSchema>;
 
-const AgentReplySchema = z.object({
+export const AgentReplySchema = z.object({
   reply: z.string().min(1).max(4000),
   status: z.enum(["asking", "done"]),
   lead: AgentLeadSchema.nullable(),
 });
 
 export type AgentReply = z.infer<typeof AgentReplySchema>;
+
+// Schema estricto y sin límites de longitud para el structured output del modelo.
+// Los límites se indican en el prompt y se aplican al guardar el lead.
+const AgentReplyOutputSchema = z.object({
+  reply: z.string().min(1),
+  status: z.enum(["asking", "done"]),
+  lead: z
+    .object({
+      name: z.string(),
+      business_type: z.string(),
+      problem: z.string(),
+      recommended_solution: z.string(),
+      tools: z.string(),
+      urgency: z.string(),
+      contact: z.string(),
+      conversation_summary: z.string(),
+    })
+    .nullable(),
+});
 
 const SYSTEM_PROMPT = `Eres el "Agente Diagnóstico LAIA", el asistente de LAIA (Laboratorio de Inteligencia Artificial).
 LAIA crea agentes de IA, chatbots, automatizaciones, aplicaciones web y landing pages para negocios.
@@ -54,33 +73,68 @@ Reglas de la conversación:
   en formato markdown con estos apartados: **Tipo de negocio**, **Problema principal**,
   **Solución recomendada**, **Herramientas sugeridas**, **Nivel de urgencia**, **Siguiente paso**.
   En ese mensaje final usa status "done".
+- Respeta estos límites de longitud para cada campo del lead:
+  name: 200 caracteres, business_type: 300, problem: 2000, recommended_solution: 2000,
+  tools: 1000, urgency: 200, contact: 300, conversation_summary: 8000, reply: 4000.
 
 Responde SIEMPRE usando la estructura esperada:
 - reply: tu mensaje para la persona (markdown permitido).
 - status: "asking" mientras estés preguntando, "done" cuando entregues el resumen final.
 - lead: null mientras estés preguntando; cuando status sea "done", incluye la información recopilada.`;
 
+function clampLead(lead: AgentLead): AgentLead {
+  return {
+    name: lead.name.slice(0, 200),
+    business_type: lead.business_type.slice(0, 300),
+    problem: lead.problem.slice(0, 2000),
+    recommended_solution: lead.recommended_solution.slice(0, 2000),
+    tools: lead.tools.slice(0, 1000),
+    urgency: lead.urgency.slice(0, 200),
+    contact: lead.contact.slice(0, 300),
+    conversation_summary: lead.conversation_summary.slice(0, 8000),
+  };
+}
+
 export const chatWithAgent = createServerFn({ method: "POST" })
   .validator((input: unknown) => ChatInput.parse(input))
   .handler(async ({ data }): Promise<AgentReply> => {
-    const key = process.env["OPENAI_API_KEY"];
+    const key = process.env["LOVABLE_API_KEY"];
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
 
-    const openai = createOpenAI({ apiKey: key });
+    const gateway = createLovableAiGatewayProvider(key, undefined, {
+      structuredOutputs: true,
+    });
 
     try {
-      const { output } = await generateText({
-        model: openai("gpt-4o-mini"),
-        output: Output.object({
-          schema: AgentReplySchema,
-        }),
+      const result = await generateText({
+        model: gateway("openai/gpt-5-mini"),
         system: SYSTEM_PROMPT,
         messages: data.messages,
+        output: Output.object({
+          schema: AgentReplyOutputSchema,
+        }),
       });
 
-      return output;
+      const output = result.output;
+      const validated = AgentReplySchema.parse(output);
+
+      if (validated.status === "done" && validated.lead) {
+        return { ...validated, lead: clampLead(validated.lead) };
+      }
+
+      return validated;
     } catch (error) {
-      console.error("OpenAI agent error", error);
+      console.error("Lovable AI Gateway agent error", error);
+
+      if (NoObjectGeneratedError.isInstance(error)) {
+        return {
+          reply:
+            "No pude armar una respuesta estructurada. ¿Podrías reformular tu mensaje?",
+          status: "asking",
+          lead: null,
+        };
+      }
+
       throw new Error("No pudimos generar la respuesta del agente. Intenta de nuevo en unos segundos.");
     }
   });
