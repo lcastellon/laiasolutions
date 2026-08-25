@@ -74,7 +74,8 @@ export const chatWithAgent = createServerFn({ method: "POST" })
         output: Output.object({
           schema: AgentReplySchema,
         }),
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...data.messages],
+        system: SYSTEM_PROMPT,
+        messages: data.messages,
       });
 
       return output;
