@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      laia_leads: {
+        Row: {
+          business_type: string | null
+          contact: string | null
+          conversation_summary: string | null
+          created_at: string
+          id: string
+          name: string | null
+          problem: string | null
+          recommended_solution: string | null
+          tools: string | null
+          urgency: string | null
+        }
+        Insert: {
+          business_type?: string | null
+          contact?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          problem?: string | null
+          recommended_solution?: string | null
+          tools?: string | null
+          urgency?: string | null
+        }
+        Update: {
+          business_type?: string | null
+          contact?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          problem?: string | null
+          recommended_solution?: string | null
+          tools?: string | null
+          urgency?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
