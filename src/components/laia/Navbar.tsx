@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LaiaLogo } from "@/components/laia/Logo";
 
 const navLinks = [
   { label: "Servicios", href: "#servicios" },
@@ -15,11 +16,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2 text-foreground transition-colors hover:opacity-80">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-electric text-white">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          <span className="font-heading text-xl font-bold tracking-tight">LAIA</span>
+        <a href="#" className="flex items-center transition-opacity hover:opacity-80" aria-label="LAIA">
+          <LaiaLogo showTagline id="laia-nav" />
         </a>
 
         <nav className="hidden items-center gap-1 md:flex">
