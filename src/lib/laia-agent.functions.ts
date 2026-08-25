@@ -5,10 +5,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { streamText, Output, NoObjectGeneratedError } from "ai";
 
 import type { Database } from "@/integrations/supabase/types";
-import {
-  createLovableAiGatewayRunIdFetch,
-  getLovableAiGatewayResponseHeaders,
-} from "./ai-gateway";
+import { createLovableAiGatewayRunIdFetch } from "./ai-gateway";
 
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
@@ -101,7 +98,7 @@ function clampLead(lead: AgentLead): AgentLead {
 
 export const chatWithAgent = createServerFn({ method: "POST" })
   .validator((input: unknown) => ChatInput.parse(input))
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<AgentReply> => {
     const key = process.env["LOVABLE_API_KEY"];
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
 
@@ -133,31 +130,22 @@ export const chatWithAgent = createServerFn({ method: "POST" })
 
       const output = await result.output;
       const validated = AgentReplySchema.parse(output);
-      const response = await result.response;
 
       if (validated.status === "done" && validated.lead) {
-        return Response.json(
-          { ...validated, lead: clampLead(validated.lead) },
-          { headers: getLovableAiGatewayResponseHeaders(response.headers) },
-        );
+        return { ...validated, lead: clampLead(validated.lead) };
       }
 
-      return Response.json(validated, {
-        headers: getLovableAiGatewayResponseHeaders(response.headers),
-      });
+      return validated;
     } catch (error) {
       console.error("Lovable AI Gateway agent error", error);
 
       if (NoObjectGeneratedError.isInstance(error)) {
-        return Response.json(
-          {
-            reply:
-              "No pude armar una respuesta estructurada. ¿Podrías reformular tu mensaje?",
-            status: "asking" as const,
-            lead: null,
-          },
-          { status: 200 },
-        );
+        return {
+          reply:
+            "No pude armar una respuesta estructurada. ¿Podrías reformular tu mensaje?",
+          status: "asking",
+          lead: null,
+        };
       }
 
       throw new Error("No pudimos generar la respuesta del agente. Intenta de nuevo en unos segundos.");
