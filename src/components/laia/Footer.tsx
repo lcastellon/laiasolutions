@@ -1,5 +1,6 @@
-import { Sparkles, Mail, Phone, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Mail, Phone, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LaiaLogo } from "@/components/laia/Logo";
 
 const footerLinks = [
   { label: "Servicios", href: "#servicios" },
@@ -20,11 +21,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 text-foreground">
-              <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-electric text-white">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <span className="font-heading text-xl font-bold tracking-tight">LAIA</span>
+            <a href="#" className="flex items-center" aria-label="LAIA">
+              <LaiaLogo showTagline id="laia-footer" />
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               Soluciones digitales con inteligencia artificial. Diseñamos, desarrollamos y
