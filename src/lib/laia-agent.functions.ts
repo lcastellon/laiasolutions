@@ -103,6 +103,15 @@ export const chatWithAgent = createServerFn({ method: "POST" })
     if (!key) throw new Error("Falta la configuración de IA en el servidor.");
 
     const runIdFetch = createLovableAiGatewayRunIdFetch();
+    const debugFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+      const response = await runIdFetch.fetch(input, init);
+      if (!response.ok) {
+        const cloned = response.clone();
+        const body = await cloned.text();
+        console.error("Lovable AI Gateway error response", response.status, body);
+      }
+      return response;
+    };
     const lovable = createOpenAI({
       baseURL: "https://ai.gateway.lovable.dev/v1",
       apiKey: key,
@@ -110,7 +119,7 @@ export const chatWithAgent = createServerFn({ method: "POST" })
         "Lovable-API-Key": key,
         "X-Lovable-AIG-SDK": "vercel-ai-sdk",
       },
-      fetch: runIdFetch.fetch,
+      fetch: debugFetch,
     });
 
     try {
