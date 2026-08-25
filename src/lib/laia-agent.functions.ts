@@ -106,9 +106,13 @@ export const chatWithAgent = createServerFn({ method: "POST" })
     const debugFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
       const response = await runIdFetch.fetch(input, init);
       if (!response.ok) {
-        const cloned = response.clone();
-        const body = await cloned.text();
+        const body = await response.text();
         console.error("Lovable AI Gateway error response", response.status, body);
+        return new Response(body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: response.headers,
+        });
       }
       return response;
     };
