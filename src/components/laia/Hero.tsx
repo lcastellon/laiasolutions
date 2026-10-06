@@ -1,6 +1,13 @@
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/laia-hero.png";
+
+const clients = [
+  { name: "Lourher", url: "https://lourher.com" },
+  { name: "Salúva Coffee", url: "https://saluvacoffee.com" },
+  { name: "The Move Club", url: "https://themoveclub.lovable.app" },
+  { name: "Moss Genomics", url: "https://mossgenomics.lovable.app" },
+];
 
 export function Hero() {
   return (
@@ -41,18 +48,41 @@ export function Hero() {
               </Button>
             </div>
 
-            <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-gradient-to-br from-secondary to-laia-violet text-xs font-medium text-white"
+            <div className="mt-8">
+              <h2 className="text-sm font-semibold text-foreground">Nuestros clientes</h2>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {clients.map((client) => (
+                  <a
+                    key={client.url}
+                    href={client.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visitar ${client.name} (abre en una nueva pestaña)`}
+                    className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:border-laia-electric/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-laia-electric focus-visible:ring-offset-2"
                   >
-                    {String.fromCharCode(64 + i)}
-                  </div>
+                    <div className="relative aspect-[3/2] overflow-hidden bg-muted">
+                      <span aria-hidden="true" className="absolute inset-0 grid place-items-center px-2 text-center text-sm font-semibold text-primary">
+                        {client.name}
+                      </span>
+                      <img
+                        src={`https://image.thum.io/get/width/600/crop/400/noanimate/${client.url}`}
+                        alt={`Vista del sitio de ${client.name}`}
+                        width={600}
+                        height={400}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                        className="relative h-full w-full object-cover object-top transition-transform group-hover:scale-105"
+                        onError={(event) => { event.currentTarget.hidden = true; }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between gap-1 px-3 py-2.5">
+                      <span className="text-xs font-semibold text-foreground">{client.name}</span>
+                      <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-laia-electric" />
+                    </div>
+                  </a>
                 ))}
               </div>
-              <p>+50 empresas ya automatizan con LAIA</p>
             </div>
           </div>
 
