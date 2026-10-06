@@ -6,8 +6,6 @@ import { Services } from "@/components/laia/Services";
 import { Process } from "@/components/laia/Process";
 import { Benefits } from "@/components/laia/Benefits";
 import { Clients } from "@/components/laia/Clients";
-import { Diagnostic } from "@/components/laia/Diagnostic";
-import { LaiaChatWidget } from "@/components/laia/DiagnosticChat";
 import { CTA } from "@/components/laia/CTA";
 import { Footer } from "@/components/laia/Footer";
 
@@ -56,12 +54,10 @@ function Index() {
         <Services />
         <Process />
         <Benefits />
-        <Diagnostic />
         <Clients />
         <CTA />
       </main>
       <Footer />
-      <LaiaChatWidget />
     </div>
   );
 }
