@@ -2,10 +2,10 @@ import { cn } from "@/lib/utils";
 
 type Tone = "color" | "light" | "dark";
 
-const palette: Record<Tone, { stroke: string; accent: string; text: string; sub: string }> = {
-  color: { stroke: "#132A4F", accent: "#64D6C4", text: "#132A4F", sub: "#3B82F6" },
-  light: { stroke: "#FAFAF7", accent: "#64D6C4", text: "#FAFAF7", sub: "#64D6C4" },
-  dark: { stroke: "#132A4F", accent: "#132A4F", text: "#132A4F", sub: "#132A4F" },
+const palette: Record<Tone, { stroke: string; accent: string; dot: string; text: string; sub: string }> = {
+  color: { stroke: "#132A4F", accent: "#64D6C4", dot: "#3B82F6", text: "#132A4F", sub: "#3B82F6" },
+  light: { stroke: "#FAFAF7", accent: "#64D6C4", dot: "#3B82F6", text: "#FAFAF7", sub: "#64D6C4" },
+  dark: { stroke: "#132A4F", accent: "#132A4F", dot: "#132A4F", text: "#132A4F", sub: "#132A4F" },
 };
 
 interface MarkProps {
@@ -14,7 +14,7 @@ interface MarkProps {
   id?: string;
 }
 
-/** Trazo continuo y dos acentos centrales, recreados en vector desde el logo original. */
+/** Trazo continuo, línea menta sólida y punto azul central, recreados en vector desde el logo original. */
 export function LaiaMark({ tone = "color", className, id = "laia" }: MarkProps) {
   const c = palette[tone];
 
@@ -35,8 +35,8 @@ export function LaiaMark({ tone = "color", className, id = "laia" }: MarkProps) 
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="128" cy="60" r="7" fill={c.accent} />
-      <path d="M128 83 V92" stroke={c.accent} strokeWidth="13" strokeLinecap="round" />
+      <path d="M128 52 V80" stroke={c.accent} strokeWidth="13" strokeLinecap="round" />
+      <circle cx="128" cy="92" r="6.5" fill={c.dot} />
     </svg>
   );
 }
