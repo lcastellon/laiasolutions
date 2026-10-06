@@ -2,7 +2,7 @@
   <rect width="256" height="256" rx="48" fill="#FAFAF7"/>
   <g transform="translate(8 56)">
   <path d="M18 16 C17 54 14 119 32 122 C51 130 62 61 82 61 C103 61 108 122 128 122 C148 122 158 61 178 61 C199 61 201 122 222 122" stroke="#132A4F" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="128" cy="60" r="7" fill="#64D6C4"/>
-  <path d="M128 83 V92" stroke="#64D6C4" stroke-width="13" stroke-linecap="round"/>
+  <path d="M128 52 V80" stroke="#64D6C4" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="128" cy="92" r="6.5" fill="#3B82F6"/>
   </g>
 </svg>
