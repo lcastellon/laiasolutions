@@ -1,47 +1,47 @@
-import { Bot, MessageSquare, Globe, Layout, Workflow, Plug } from "lucide-react";
+import { Monitor, ShoppingCart, Globe, Layout, Workflow, Plug } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const services = [
   {
-    icon: Bot,
-    title: "Agentes de IA personalizados",
-    description:
-      "Creamos asistentes inteligentes que entienden tu negocio, toman decisiones y ejecutan tareas específicas para tu equipo.",
-    color: "bg-laia-electric/10 text-laia-electric",
-  },
-  {
-    icon: MessageSquare,
-    title: "Chatbots para atención y ventas",
-    description:
-      "Atención al cliente disponible 24/7, respuestas instantáneas y conversaciones que convierten visitantes en compradores.",
-    color: "bg-laia-violet/10 text-laia-violet",
-  },
-  {
-    icon: Globe,
-    title: "Aplicaciones web a medida",
-    description:
-      "Desarrollamos herramientas digitales funcionales, escalables y fáciles de usar, adaptadas a los procesos de tu empresa.",
-    color: "bg-laia-mint/10 text-laia-mint",
-  },
-  {
     icon: Layout,
     title: "Landing pages profesionales",
     description:
-      "Páginas de alta conversión, rápidas, con diseño moderno y optimizadas para captar clientes potenciales desde el primer clic.",
+      "Páginas rápidas, con diseño profesional y adaptadas a celulares, pensadas para presentar tu negocio y captar clientes potenciales.",
     color: "bg-laia-coral/10 text-laia-coral",
+  },
+  {
+    icon: ShoppingCart,
+    title: "Puntos de venta para tu negocio",
+    description:
+      "Sistemas para registrar ventas, gestionar inventarios y llevar el control de tu operación desde un solo lugar.",
+    color: "bg-laia-violet/10 text-laia-violet",
+  },
+  {
+    icon: Monitor,
+    title: "Software especializado",
+    description:
+      "Diseñamos software a medida para las necesidades de tu negocio, con herramientas que se adaptan a tu forma de trabajar.",
+    color: "bg-laia-electric/10 text-laia-electric",
+  },
+  {
+    icon: Globe,
+    title: "Desarrollo de aplicaciones",
+    description:
+      "Creamos aplicaciones funcionales, fáciles de usar y adaptadas a tus objetivos y a las necesidades de tus usuarios.",
+    color: "bg-laia-mint/10 text-laia-mint",
   },
   {
     icon: Workflow,
     title: "Automatización de procesos",
     description:
-      "Eliminamos tareas repetitivas conectando herramientas y flujos de trabajo para que tu equipo enfoque su tiempo en lo importante.",
+      "Reducimos tareas repetitivas conectando herramientas y flujos de trabajo para que tu equipo enfoque su tiempo en lo importante.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Plug,
     title: "Integración con herramientas digitales",
     description:
-      "Conectamos CRMs, ERPs, plataformas de marketing, WhatsApp y cualquier sistema que ya uses en tu operación diaria.",
+      "Conectamos las herramientas que usas en tu operación para facilitar el intercambio de información y reducir capturas manuales.",
     color: "bg-secondary/10 text-secondary",
   },
 ];

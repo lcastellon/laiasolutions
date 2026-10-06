@@ -6,7 +6,7 @@ const steps = [
     icon: ClipboardList,
     title: "Diagnóstico del negocio",
     description:
-      "Conocemos tu operación, identificamos procesos repetitivos y oportunidades donde la IA puede generar mayor impacto.",
+      "Conocemos tu operación, identificamos procesos repetitivos y oportunidades donde una solución digital puede generar mayor impacto.",
   },
   {
     number: "02",

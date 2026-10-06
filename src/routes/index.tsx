@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "En LAIA diseñamos soluciones inteligentes: automatizamos procesos, creamos asistentes de IA, aplicaciones web y landing pages que trabajan contigo y para ti.",
+          "En Laia diseñamos soluciones inteligentes: landing pages profesionales, puntos de venta para tu negocio, software especializado, aplicaciones y automatización de procesos.",
       },
       {
         property: "og:title",
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Diseñamos soluciones inteligentes: automatización, chatbots, aplicaciones web y landing pages con inteligencia artificial.",
+          "Landing pages profesionales, puntos de venta, software especializado, aplicaciones y automatización de procesos para tu negocio.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "Diseñamos soluciones inteligentes: automatización, chatbots, aplicaciones web y landing pages con inteligencia artificial.",
+          "Landing pages profesionales, puntos de venta, software especializado, aplicaciones y automatización de procesos para tu negocio.",
       },
       { property: "og:image", content: "https://laiasolutions.lovable.app/og-laia.png" },
       { name: "twitter:image", content: "https://laiasolutions.lovable.app/og-laia.png" },

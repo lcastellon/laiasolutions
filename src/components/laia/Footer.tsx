@@ -25,8 +25,8 @@ export function Footer() {
               <LaiaLogo showTagline id="laia-footer" />
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Soluciones digitales con inteligencia artificial. Diseñamos, desarrollamos y
-              acompañamos a tu negocio hacia una operación más eficiente.
+              Landing pages, puntos de venta, software especializado, aplicaciones y automatización
+              de procesos para hacer más eficiente la operación de tu negocio.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {socialLinks.map((social) => (

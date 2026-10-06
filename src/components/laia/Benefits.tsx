@@ -1,4 +1,4 @@
-import { Clock, Zap, Repeat, Smile, Lightbulb, Brain } from "lucide-react";
+import { Clock, Zap, Repeat, Smile, Lightbulb, BarChart3 } from "lucide-react";
 
 const benefits = [
   {
@@ -8,8 +8,8 @@ const benefits = [
   },
   {
     icon: Zap,
-    title: "Responder clientes más rápido",
-    description: "Respuestas inmediatas en cualquier canal, incluso fuera de horario.",
+    title: "Agilizar tus ventas",
+    description: "Registra ventas y consulta información de productos desde un punto de venta adaptado a tu negocio.",
   },
   {
     icon: Repeat,
@@ -19,7 +19,7 @@ const benefits = [
   {
     icon: Smile,
     title: "Mejorar la experiencia del cliente",
-    description: "Atención personalizada, disponible y consistente en cada interacción.",
+    description: "Ofrece páginas y aplicaciones claras, rápidas y fáciles de usar.",
   },
   {
     icon: Lightbulb,
@@ -27,9 +27,9 @@ const benefits = [
     description: "Transformamos conceptos en aplicaciones funcionales listas para usar y escalar.",
   },
   {
-    icon: Brain,
-    title: "Usar IA de forma práctica y útil",
-    description: "Soluciones concretas, no tecnología por tecnología. Resultados medibles desde el inicio.",
+    icon: BarChart3,
+    title: "Tener más control de tu negocio",
+    description: "Consulta ventas, inventarios e información de tu operación para tomar decisiones con mayor claridad.",
   },
 ];
 
@@ -46,8 +46,8 @@ export function Benefits() {
               ¿Por qué tu negocio necesita una solución con LAIA?
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              La inteligencia artificial no reemplaza a las personas: las potencia. Te ayuda a
-              trabajar menos en lo operativo y más en lo estratégico.
+              La tecnología te ayuda a organizar tu operación, reducir tareas manuales y dedicar
+              más tiempo a las decisiones que hacen crecer tu negocio.
             </p>
           </div>
 

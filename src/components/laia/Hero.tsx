@@ -13,7 +13,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-laia-mint opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-laia-mint" />
               </span>
-              Soluciones digitales con inteligencia artificial
+              Tecnología a la medida de tu negocio
             </div>
 
             <h1 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
@@ -21,8 +21,9 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              En LAIA diseñamos soluciones inteligentes: automatizamos procesos, creamos asistentes
-              de IA, aplicaciones web y landing pages que trabajan contigo y para ti.
+              En Laia diseñamos soluciones inteligentes: landing pages profesionales, puntos de venta
+              para tu negocio, software especializado y aplicaciones. Automatizamos procesos
+              para que trabajes de forma más eficiente.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -59,7 +60,7 @@ export function Hero() {
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-laia-electric/20 via-laia-mint/10 to-laia-coral/10 blur-3xl" />
             <img
               src={heroImage}
-              alt="Ilustración abstracta de automatización e inteligencia artificial"
+              alt="Ilustración abstracta de tecnología y automatización"
               width={1440}
               height={900}
               className="relative rounded-2xl border border-border/50 bg-card shadow-2xl"

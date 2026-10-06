@@ -18,11 +18,11 @@ export function Clients() {
           Para quién es LAIA
         </span>
         <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          IA accesible para todo tipo de negocios
+          Soluciones digitales para todo tipo de negocios
         </h2>
         <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
           LAIA trabaja con emprendedores, consultores, negocios locales, clínicas, despachos,
-          escuelas, marcas personales y empresas que quieren usar IA sin complicarse.
+          escuelas, marcas personales y empresas que quieren digitalizar su operación sin complicarse.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
