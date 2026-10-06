@@ -1,4 +1,4 @@
-# LAIA: Smart Solutions
+# LAIA Soluciones Digitales
 
 Crea una landing page moderna, elegante y profesional para una empresa llamada LAIA.
 
@@ -32,7 +32,7 @@ Estructura de la landing:
 
 Título principal:
 
-“Laboratorio y Agentes de IA para hacer crecer tu negocio”
+“LAIA Soluciones Digitales”
 
 Subtítulo:
 

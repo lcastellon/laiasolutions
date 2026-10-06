@@ -20,7 +20,7 @@ export function buildQuoteUrl(details: {
   description: string;
 }) {
   const message = [
-    "Hola, Laia. Me gustaría solicitar una cotización.",
+    "Hola, LAIA. Me gustaría solicitar una cotización.",
     "",
     `Nombre: ${details.name.trim()}`,
     `Negocio: ${details.business.trim() || "No especificado"}`,

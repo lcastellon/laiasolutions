@@ -22,7 +22,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center" aria-label="Laia Soluciones digitales">
+            <a href="#" className="flex items-center" aria-label="LAIA Soluciones Digitales">
               <LaiaLogo showTagline id="laia-footer" />
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
@@ -83,7 +83,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Laia Soluciones digitales. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} LAIA Soluciones Digitales. Todos los derechos reservados.</p>
           <p>
             Diseñado con cuidado en{" "}
             <span className="text-laia-electric">México</span>.
