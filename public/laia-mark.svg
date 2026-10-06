@@ -1,8 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
-  <rect width="256" height="256" rx="48" fill="#FAFAF7"/>
-  <g transform="translate(8 56)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 144" width="240" height="144" fill="none" role="img" aria-label="Laia Soluciones digitales">
   <path d="M18 16 C17 54 14 119 32 122 C51 130 62 61 82 61 C103 61 108 122 128 122 C148 122 158 61 178 61 C199 61 201 122 222 122" stroke="#132A4F" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
   <circle cx="128" cy="60" r="7" fill="#64D6C4"/>
   <path d="M128 83 V92" stroke="#64D6C4" stroke-width="13" stroke-linecap="round"/>
-  </g>
 </svg>

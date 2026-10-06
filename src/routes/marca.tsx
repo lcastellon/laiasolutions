@@ -69,9 +69,8 @@ function Marca() {
           Identidad LAIA
         </h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Isotipo abstracto: un módulo geométrico suave que contiene la “L” de LAIA conectada a un
-          nodo de inteligencia. Minimalista, cálido y legible desde un favicon hasta una
-          presentación.
+          Un trazo continuo de curvas suaves y dos acentos centrales conserva la identidad del
+          logo original. Azul profundo y verde menta, con variantes para fondos claros y oscuros.
         </p>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
@@ -85,11 +84,11 @@ function Marca() {
             <LaiaLogo tone="dark" id="m3" className="scale-125" />
           </Panel>
           <Panel title="Isotipo · color / clara / oscura">
-            <div className="flex items-center gap-8">
-              <LaiaMark tone="color" id="m4" className="h-16 w-16" />
-              <LaiaMark tone="dark" id="m5" className="h-16 w-16" />
-              <span className="grid h-16 w-16 place-items-center rounded-xl" style={{ backgroundColor: "#132A4F" }}>
-                <LaiaMark tone="light" id="m6" className="h-11 w-11" />
+            <div className="flex flex-wrap items-center justify-center gap-6">
+              <LaiaMark tone="color" id="m4" className="h-12 w-20" />
+              <LaiaMark tone="dark" id="m5" className="h-12 w-20" />
+              <span className="grid h-16 w-24 place-items-center rounded-xl" style={{ backgroundColor: "#132A4F" }}>
+                <LaiaMark tone="light" id="m6" className="h-11 w-[4.5rem]" />
               </span>
             </div>
           </Panel>

@@ -2,13 +2,10 @@ import { cn } from "@/lib/utils";
 
 type Tone = "color" | "light" | "dark";
 
-const palette: Record<Tone, { from: string; to: string; node: string; text: string; sub: string }> = {
-  // Full color: deep blue -> electric blue with mint node
-  color: { from: "#132A4F", to: "#3B82F6", node: "#64D6C4", text: "#132A4F", sub: "#3B82F6" },
-  // Light version: for deep blue / dark backgrounds
-  light: { from: "#FAFAF7", to: "#FAFAF7", node: "#64D6C4", text: "#FAFAF7", sub: "#64D6C4" },
-  // Dark version: single-ink for white / light backgrounds
-  dark: { from: "#132A4F", to: "#132A4F", node: "#132A4F", text: "#132A4F", sub: "#132A4F" },
+const palette: Record<Tone, { stroke: string; accent: string; text: string; sub: string }> = {
+  color: { stroke: "#132A4F", accent: "#64D6C4", text: "#132A4F", sub: "#3B82F6" },
+  light: { stroke: "#FAFAF7", accent: "#64D6C4", text: "#FAFAF7", sub: "#64D6C4" },
+  dark: { stroke: "#132A4F", accent: "#132A4F", text: "#132A4F", sub: "#132A4F" },
 };
 
 interface MarkProps {
@@ -17,58 +14,29 @@ interface MarkProps {
   id?: string;
 }
 
-/** Isotipo: contenedor geométrico suave + "L" de LAIA conectada a un nodo de IA. */
+/** Trazo continuo y dos acentos centrales, recreados en vector desde el logo original. */
 export function LaiaMark({ tone = "color", className, id = "laia" }: MarkProps) {
   const c = palette[tone];
-  const gradientId = `${id}-mark-gradient`;
 
   return (
     <svg
-      viewBox="0 0 40 40"
+      id={id}
+      viewBox="0 0 240 144"
       role="img"
       aria-label="Laia Soluciones digitales"
-      className={cn("h-10 w-10", className)}
+      className={cn("h-10 w-auto", className)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <linearGradient id={gradientId} x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-          <stop stopColor={c.from} />
-          <stop offset="1" stopColor={c.to} />
-        </linearGradient>
-      </defs>
-
-      {/* Contenedor modular de esquinas suaves */}
-      <rect
-        x="2.25"
-        y="2.25"
-        width="35.5"
-        height="35.5"
-        rx="11.5"
-        stroke={`url(#${gradientId})`}
-        strokeWidth="2.5"
-      />
-
-      {/* Conexión neuronal sutil */}
       <path
-        d="M13 20.5 L25.5 13.5"
-        stroke={c.node}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        opacity="0.6"
-      />
-
-      {/* "L" de LAIA */}
-      <path
-        d="M13 10.5 V27 H25.5"
-        stroke={`url(#${gradientId})`}
-        strokeWidth="3.1"
+        d="M18 16 C17 54 14 119 32 122 C51 130 62 61 82 61 C103 61 108 122 128 122 C148 122 158 61 178 61 C199 61 201 122 222 122"
+        stroke={c.stroke}
+        strokeWidth="13"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-
-      {/* Nodo / chispa de inteligencia */}
-      <circle cx="25.8" cy="13.2" r="3.4" fill={c.node} />
+      <circle cx="128" cy="60" r="7" fill={c.accent} />
+      <path d="M128 83 V92" stroke={c.accent} strokeWidth="13" strokeLinecap="round" />
     </svg>
   );
 }
@@ -91,7 +59,7 @@ export function LaiaLogo({
 
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <LaiaMark tone={tone} id={id} className={cn("h-9 w-9 shrink-0", markClassName)} />
+      <LaiaMark tone={tone} id={id} className={cn("h-9 w-[3.75rem] shrink-0", markClassName)} />
       <span className="flex flex-col leading-none">
         <span
           className="font-heading text-xl font-bold tracking-[0.14em]"
