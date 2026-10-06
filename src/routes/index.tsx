@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "LAIA | Laboratorio y Agentes de IA para tu negocio" },
+      { title: "Laia Soluciones digitales" },
       {
         name: "description",
         content:
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "LAIA | Laboratorio y Agentes de IA para tu negocio",
+        content: "Laia Soluciones digitales",
       },
       {
         property: "og:description",
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "LAIA | Laboratorio y Agentes de IA para tu negocio",
+        content: "Laia Soluciones digitales",
       },
       {
         name: "twitter:description",

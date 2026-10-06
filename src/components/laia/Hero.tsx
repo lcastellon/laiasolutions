@@ -17,8 +17,7 @@ export function Hero() {
             </div>
 
             <h1 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Laboratorio y Agentes de IA para{" "}
-              <span className="text-gradient">hacer crecer tu negocio</span>
+              Laia <span className="text-gradient">Soluciones digitales</span>
             </h1>
 
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl">

@@ -26,7 +26,7 @@ export function LaiaMark({ tone = "color", className, id = "laia" }: MarkProps) 
     <svg
       viewBox="0 0 40 40"
       role="img"
-      aria-label="LAIA"
+      aria-label="Laia Soluciones digitales"
       className={cn("h-10 w-10", className)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -97,14 +97,14 @@ export function LaiaLogo({
           className="font-heading text-xl font-bold tracking-[0.14em]"
           style={{ color: c.text }}
         >
-          LAIA
+          Laia
         </span>
         {showTagline && (
           <span
-            className="mt-1 text-[0.5rem] font-medium uppercase tracking-[0.18em] sm:text-[0.55rem]"
+            className="mt-1 text-[0.5rem] font-medium tracking-[0.18em] sm:text-[0.55rem]"
             style={{ color: c.sub }}
           >
-            Laboratorio de Inteligencia Artificial
+            Soluciones digitales
           </span>
         )}
       </span>

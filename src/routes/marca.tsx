@@ -10,7 +10,7 @@ export const Route = createFileRoute("/marca")({
       {
         name: "description",
         content:
-          "Logo de LAIA, Laboratorio de Inteligencia Artificial: versión horizontal, isotipo, variante clara y variante oscura sobre fondo blanco y azul profundo.",
+          "Logo de Laia Soluciones digitales: versión horizontal, isotipo, variante clara y variante oscura sobre fondo blanco y azul profundo.",
       },
       { property: "og:title", content: "Identidad de marca LAIA | Logo y variantes" },
       {
