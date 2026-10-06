@@ -1,6 +1,7 @@
-import { Mail, Phone, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Phone, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LaiaLogo } from "@/components/laia/Logo";
+import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/contact";
 
 const footerLinks = [
   { label: "Servicios", href: "#servicios" },
@@ -69,15 +70,11 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-laia-mint" />
-                <span>PLACEHOLDER_PHONE</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-laia-coral" />
-                <span>PLACEHOLDER_EMAIL</span>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-laia-electric">{WHATSAPP_DISPLAY}</a>
               </li>
             </ul>
             <Button className="mt-6 w-full gap-2" asChild>
-              <a href="https://wa.me/PLACEHOLDER_WHATSAPP" target="_blank" rel="noopener noreferrer">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <Phone className="h-4 w-4" />
                 Escríbenos por WhatsApp
               </a>
