@@ -1,7 +1,7 @@
 import type { FormEvent } from "react";
 import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { buildQuoteUrl, QUOTE_SERVICES, WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/contact";
+import { buildQuoteUrl, QUOTE_SERVICES, WHATSAPP_URL } from "@/lib/contact";
 
 const fieldClass = "mt-2 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-laia-electric";
 const labelClass = "block text-sm font-medium text-foreground";
@@ -48,9 +48,6 @@ export function CTA() {
                   Escríbenos por WhatsApp
                 </a>
               </Button>
-              <p className="mt-4 text-sm text-white/80">
-                WhatsApp: <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-white underline underline-offset-4">{WHATSAPP_DISPLAY}</a>
-              </p>
             </div>
 
             <form onSubmit={requestQuote} className="rounded-2xl bg-card p-5 text-card-foreground shadow-lg sm:p-7">
