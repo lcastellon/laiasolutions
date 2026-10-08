@@ -1,6 +1,8 @@
-import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
+  type CarouselApi,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -17,6 +19,20 @@ const clients = [
 ];
 
 export function Hero() {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
+
+  useEffect(() => {
+    if (!carouselApi || autoplayPaused) return;
+
+    const interval = window.setInterval(() => {
+      if (document.hidden) return;
+      carouselApi.scrollNext();
+    }, 3500);
+
+    return () => window.clearInterval(interval);
+  }, [carouselApi, autoplayPaused]);
+
   return (
     <section className="relative overflow-hidden gradient-hero px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-20">
       <div className="mx-auto max-w-7xl">
@@ -71,9 +87,22 @@ export function Hero() {
         </div>
 
         <div className="mt-14 border-t border-border/60 pt-8 sm:mt-16">
-          <h2 className="text-xl font-semibold text-foreground sm:text-2xl">Nuestros clientes</h2>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-xl font-semibold text-foreground sm:text-2xl">Nuestros clientes</h2>
+            <Button
+              variant="outline"
+              size="sm"
+              className="shrink-0 gap-2"
+              onClick={() => setAutoplayPaused((paused) => !paused)}
+              aria-label={autoplayPaused ? "Reanudar carrusel de clientes" : "Pausar carrusel de clientes"}
+            >
+              {autoplayPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+              {autoplayPaused ? "Reanudar" : "Pausar"}
+            </Button>
+          </div>
           <Carousel
             opts={{ align: "start", loop: true }}
+            setApi={setCarouselApi}
             aria-label="Nuestros clientes"
             className="mt-5 min-w-0 pb-14"
           >
