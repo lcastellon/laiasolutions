@@ -1,4 +1,4 @@
-import { Phone, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Phone, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LaiaLogo } from "@/components/laia/Logo";
 import { WHATSAPP_URL } from "@/lib/contact";
@@ -12,8 +12,6 @@ const footerLinks = [
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/laia_digisol", label: "Instagram" },
-  { icon: Linkedin, href: "PLACEHOLDER_LINKEDIN", label: "LinkedIn" },
-  { icon: Twitter, href: "PLACEHOLDER_TWITTER", label: "Twitter" },
 ];
 
 export function Footer() {
