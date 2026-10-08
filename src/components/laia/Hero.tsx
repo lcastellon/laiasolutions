@@ -18,6 +18,9 @@ const clients = [
   { name: "Moss Genomics", url: "https://mossgenomics.lovable.app" },
 ];
 
+// Two copies provide enough slides for a seamless loop when three cards are visible.
+const carouselClients = [...clients, ...clients];
+
 export function Hero() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
@@ -27,7 +30,11 @@ export function Hero() {
 
     const interval = window.setInterval(() => {
       if (document.hidden) return;
-      carouselApi.scrollNext();
+      if (carouselApi.canScrollNext()) {
+        carouselApi.scrollNext();
+      } else {
+        carouselApi.scrollTo(0);
+      }
     }, 3500);
 
     return () => window.clearInterval(interval);
@@ -107,9 +114,9 @@ export function Hero() {
             className="mt-5 min-w-0 pb-14"
           >
             <CarouselContent className="-ml-5">
-            {clients.map((client) => (
+            {carouselClients.map((client, index) => (
               <CarouselItem
-                key={client.url}
+                key={`${client.url}-${index}`}
                 aria-label={client.name}
                 className="basis-[85%] pl-5 sm:basis-1/2 lg:basis-1/3"
               >
