@@ -11,7 +11,7 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "PLACEHOLDER_INSTAGRAM", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/laia_digisol", label: "Instagram" },
   { icon: Linkedin, href: "PLACEHOLDER_LINKEDIN", label: "LinkedIn" },
   { icon: Twitter, href: "PLACEHOLDER_TWITTER", label: "Twitter" },
 ];
