@@ -1,5 +1,12 @@
 import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import heroImage from "@/assets/laia-hero.png";
 
 const clients = [
@@ -47,43 +54,6 @@ export function Hero() {
                 </a>
               </Button>
             </div>
-
-            <div className="mt-8">
-              <h2 className="text-sm font-semibold text-foreground">Nuestros clientes</h2>
-              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {clients.map((client) => (
-                  <a
-                    key={client.url}
-                    href={client.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visitar ${client.name} (abre en una nueva pestaña)`}
-                    className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:border-laia-electric/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-laia-electric focus-visible:ring-offset-2"
-                  >
-                    <div className="relative aspect-[3/2] overflow-hidden bg-muted">
-                      <span aria-hidden="true" className="absolute inset-0 grid place-items-center px-2 text-center text-sm font-semibold text-primary">
-                        {client.name}
-                      </span>
-                      <img
-                        src={`https://image.thum.io/get/width/600/crop/400/noanimate/${client.url}`}
-                        alt={`Vista del sitio de ${client.name}`}
-                        width={600}
-                        height={400}
-                        loading="lazy"
-                        decoding="async"
-                        referrerPolicy="no-referrer"
-                        className="relative h-full w-full object-cover object-top transition-transform group-hover:scale-105"
-                        onError={(event) => { event.currentTarget.hidden = true; }}
-                      />
-                    </div>
-                    <div className="flex items-center justify-between gap-1 px-3 py-2.5">
-                      <span className="text-xs font-semibold text-foreground">{client.name}</span>
-                      <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-laia-electric" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
 
           <div className="relative">
@@ -98,6 +68,62 @@ export function Hero() {
               fetchPriority="high"
             />
           </div>
+        </div>
+
+        <div className="mt-14 border-t border-border/60 pt-8 sm:mt-16">
+          <h2 className="text-xl font-semibold text-foreground sm:text-2xl">Nuestros clientes</h2>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            aria-label="Nuestros clientes"
+            className="mt-5 min-w-0 pb-14"
+          >
+            <CarouselContent className="-ml-5">
+            {clients.map((client) => (
+              <CarouselItem
+                key={client.url}
+                aria-label={client.name}
+                className="basis-[85%] pl-5 sm:basis-1/2 lg:basis-1/3"
+              >
+              <a
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visitar ${client.name} (abre en una nueva pestaña)`}
+                className="group block overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:border-laia-electric/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-laia-electric focus-visible:ring-offset-2"
+              >
+                <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                  <span aria-hidden="true" className="absolute inset-0 grid place-items-center px-2 text-center text-sm font-semibold text-primary">
+                    {client.name}
+                  </span>
+                  <img
+                    src={`https://image.thum.io/get/width/800/crop/450/noanimate/${client.url}`}
+                    alt={`Vista del sitio de ${client.name}`}
+                    width={800}
+                    height={450}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="relative h-full w-full object-cover object-top transition-transform group-hover:scale-105"
+                    onError={(event) => { event.currentTarget.hidden = true; }}
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-3 px-5 py-4">
+                  <span className="text-base font-semibold text-foreground">{client.name}</span>
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-laia-electric" />
+                </div>
+              </a>
+              </CarouselItem>
+            ))}
+            </CarouselContent>
+            <CarouselPrevious
+              aria-label="Cliente anterior"
+              className="bottom-0 left-auto right-12 top-auto h-10 w-10 translate-y-0"
+            />
+            <CarouselNext
+              aria-label="Cliente siguiente"
+              className="bottom-0 right-0 top-auto h-10 w-10 translate-y-0"
+            />
+          </Carousel>
         </div>
       </div>
     </section>
