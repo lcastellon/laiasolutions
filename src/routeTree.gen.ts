@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as MarcaRouteImport } from './routes/marca'
 import { Route as AuthenticatedLeadsRouteImport } from './routes/_authenticated/leads'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,18 +40,26 @@ const AuthenticatedLeadsRoute = AuthenticatedLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
   '/leads': typeof AuthenticatedLeadsRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
   '/leads': typeof AuthenticatedLeadsRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +68,15 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
   '/_authenticated/leads': typeof AuthenticatedLeadsRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/marca' | '/leads'
+  fullPaths:
+    '/' | '/auth' | '/marca' | '/leads' | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/marca' | '/leads'
+  to:
+    '/' | '/auth' | '/marca' | '/leads' | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -72,6 +84,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/marca'
     | '/_authenticated/leads'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -79,6 +92,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   MarcaRoute: typeof MarcaRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLeadsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -137,6 +158,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   MarcaRoute: MarcaRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
