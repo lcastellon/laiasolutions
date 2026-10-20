@@ -1,26 +1,55 @@
-import type { FormEvent } from "react";
-import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
+import { useRef, useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowRight, Calendar, LoaderCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { buildQuoteUrl, QUOTE_SERVICES, WHATSAPP_URL } from "@/lib/contact";
+import { QUOTE_SERVICES, WHATSAPP_URL } from "@/lib/contact";
+import { quoteSchema } from "@/lib/quote-schema";
+import { submitQuote } from "@/lib/quote.functions";
 
 const fieldClass = "mt-2 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-laia-electric";
 const labelClass = "block text-sm font-medium text-foreground";
 
 export function CTA() {
-  function requestQuote(event: FormEvent<HTMLFormElement>) {
+  const sendQuote = useServerFn(submitQuote);
+  const [sending, setSending] = useState(false);
+  const [feedback, setFeedback] = useState<{ ok: boolean; message: string } | null>(null);
+  const submissionId = useRef<string | null>(null);
+
+  async function requestQuote(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (sending) return;
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
     const fields = new FormData(form);
     const get = (key: string) => String(fields.get(key) || "").trim();
-    // Navigation opens WhatsApp with a draft. The visitor confirms sending there.
-    window.location.assign(buildQuoteUrl({
+    submissionId.current ??= crypto.randomUUID();
+    const parsed = quoteSchema.safeParse({
+      submissionId: submissionId.current,
       name: get("name"),
       business: get("business"),
       contact: get("contact"),
       service: get("service"),
       description: get("description"),
-    }));
+      website: get("website"),
+    });
+    if (!parsed.success) {
+      setFeedback({ ok: false, message: "Revisa los datos de tu solicitud." });
+      return;
+    }
+    setSending(true);
+    setFeedback(null);
+    try {
+      const result = await sendQuote({ data: parsed.data });
+      setFeedback(result);
+      if (result.ok) {
+        form.reset();
+        submissionId.current = null;
+      }
+    } catch {
+      setFeedback({ ok: false, message: "No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos por WhatsApp." });
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -53,9 +82,13 @@ export function CTA() {
             <form onSubmit={requestQuote} className="rounded-2xl bg-card p-5 text-card-foreground shadow-lg sm:p-7">
               <h3 className="text-xl font-bold text-foreground">Pide tu cotización</h3>
               <p id="quote-help" className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Completa los datos. Abriremos WhatsApp con tu solicitud lista para que la envíes.
+                Envíanos tu solicitud y nos comunicaremos contigo para conocer tu proyecto.
               </p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="quote-website">Sitio web</label>
+                  <input id="quote-website" name="website" tabIndex={-1} autoComplete="off" />
+                </div>
                 <label htmlFor="quote-name" className={labelClass}>
                   Nombre *
                   <input id="quote-name" name="name" autoComplete="name" required maxLength={120} placeholder="Tu nombre" className={fieldClass} />
@@ -81,9 +114,10 @@ export function CTA() {
                 </label>
               </div>
               <p className="mt-3 text-xs text-muted-foreground">* Campos obligatorios</p>
-              <Button type="submit" size="lg" aria-describedby="quote-help" className="mt-5 w-full gap-2">
-                Continuar en WhatsApp
-                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              {feedback && <p role={feedback.ok ? "status" : "alert"} className={`mt-4 text-sm ${feedback.ok ? "text-foreground" : "text-destructive"}`}>{feedback.message}</p>}
+              <Button type="submit" size="lg" disabled={sending} aria-describedby="quote-help" className="mt-5 w-full gap-2">
+                {sending ? "Enviando solicitud…" : "Enviar solicitud"}
+                {sending ? <LoaderCircle aria-hidden="true" className="h-4 w-4 animate-spin" /> : <ArrowRight aria-hidden="true" className="h-4 w-4" />}
               </Button>
             </form>
           </div>
