@@ -10,6 +10,7 @@ import { CTA } from "@/components/laia/CTA";
 import { Footer } from "@/components/laia/Footer";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   component: Index,
   head: () => ({
     meta: [
