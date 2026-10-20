@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as MarcaRouteImport } from './routes/marca'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedLeadsRouteImport } from './routes/_authenticated/leads'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
@@ -35,6 +36,11 @@ const MarcaRoute = MarcaRouteImport.update({
   path: '/marca',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedLeadsRoute = AuthenticatedLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/leads': typeof AuthenticatedLeadsRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/leads': typeof AuthenticatedLeadsRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -67,22 +75,34 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/marca': typeof MarcaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/leads': typeof AuthenticatedLeadsRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/marca' | '/leads' | '/lovable/email/transactional/preview'
+    | '/'
+    | '/auth'
+    | '/marca'
+    | '/sitemap.xml'
+    | '/leads'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/auth' | '/marca' | '/leads' | '/lovable/email/transactional/preview'
+    | '/'
+    | '/auth'
+    | '/marca'
+    | '/sitemap.xml'
+    | '/leads'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/marca'
+    | '/sitemap.xml'
     | '/_authenticated/leads'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
@@ -92,6 +112,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   MarcaRoute: typeof MarcaRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -123,6 +144,13 @@ declare module '@tanstack/react-router' {
       path: '/marca'
       fullPath: '/marca'
       preLoaderRoute: typeof MarcaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/leads': {
@@ -158,6 +186,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   MarcaRoute: MarcaRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport

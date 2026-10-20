@@ -9,6 +9,7 @@ import { LaiaLogo } from "@/components/laia/Logo";
 import { listLeads, claimAdminAccess, type LaiaLead } from "@/lib/laia-leads.functions";
 
 export const Route = createFileRoute("/_authenticated/leads")({
+  staticData: { sitemap: false },
   component: LeadsPage,
   head: () => ({
     meta: [

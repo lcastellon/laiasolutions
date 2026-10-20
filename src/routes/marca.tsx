@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { LaiaLogo, LaiaMark } from "@/components/laia/Logo";
 
 export const Route = createFileRoute("/marca")({
+  staticData: { sitemap: true },
   component: Marca,
   head: () => ({
     meta: [

@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { LaiaLogo } from "@/components/laia/Logo";
 
 export const Route = createFileRoute("/auth")({
+  staticData: { sitemap: false },
   component: AuthPage,
   head: () => ({
     meta: [
