@@ -16,6 +16,8 @@ const clients = [
   { name: "Salúva Coffee", url: "https://saluvacoffee.com" },
   { name: "The Move Club", url: "https://themoveclub.lovable.app" },
   { name: "Moss Genomics", url: "https://mossgenomics.lovable.app" },
+  { name: "Dr. Ángel David Flores", url: "https://angeldavidflores.com" },
+  { name: "Dra. Selma Ríos", url: "https://selmarios.com" },
 ];
 
 // Two copies provide enough slides for a seamless loop when three cards are visible.
