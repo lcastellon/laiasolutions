@@ -18,6 +18,7 @@ const clients = [
   { name: "Moss Genomics", url: "https://mossgenomics.lovable.app" },
   { name: "Dr. Ángel David Flores", url: "https://angeldavidflores.com" },
   { name: "Dra. Selma Ríos", url: "https://selmarios.com" },
+  { name: "Ajedrez para Laia", url: "https://chess4laia.com" },
 ];
 
 // Two copies provide enough slides for a seamless loop when three cards are visible.
